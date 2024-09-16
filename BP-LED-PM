@@ -1,0 +1,39 @@
+int G = 10;
+int R = 11;
+int BP = 13;
+int PM = A0;
+int PV;
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(G, OUTPUT);
+  pinMode(R, OUTPUT);
+  pinMode(BP, OUTPUT);
+  pinMode(PM, OUTPUT);
+}
+
+void loop()
+{
+  int sensorValue = analogRead(PM);
+  Serial.println(sensorValue);
+  
+    if (sensorValue > 1)
+  {
+   digitalWrite(R, 0);
+   digitalWrite(G, 1);
+   digitalWrite(BP, 0);
+   noTone(BP);
+  }
+  else 
+  {
+    digitalWrite(BP, 0);
+    digitalWrite(R, 1);
+    digitalWrite(G, 0);
+	tone(BP, 650, 750);
+    delay(300);
+    tone(BP, 900, 1000);
+    delay(300);
+    }
+  }
+
