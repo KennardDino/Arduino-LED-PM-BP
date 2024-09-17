@@ -18,9 +18,7 @@ void loop() {
   int sirenSpeed = map(val, 0, 1023, 100, 1000);  
   int highFrequency = map(val, 0, 1023, 800, 1200); 
   int lowFrequency = map(val, 0, 1023, 400, 600);  
-  int volume = map(val, 0, 1023, 10, 255);  
- int onTime = map(volume, 10, 255, 100, 1000); 
-    int offTime = map(volume, 10, 255, 1000, 100); 
+
 
   if (val > 700) {
     digitalWrite(R, LOW);   
