@@ -27,9 +27,7 @@ void loop() {
   } 
   else { 
     digitalWrite(G, LOW);   
-    digitalWrite(R, HIGH);  
-
-   
+    digitalWrite(R, HIGH);    
     tone(BP, frequency); 
     delay(sirenSpeed);    
     noTone(BP);           
