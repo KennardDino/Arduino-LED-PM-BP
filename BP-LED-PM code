@@ -1,39 +1,40 @@
-int G = 10;
-int R = 11;
-int BP = 13;
-int PM = A0;
-int PV;
+int G = 10;   
+int R = 11;  
+int BP = 13;  
+int PM = A0; 
 
-void setup()
-{
+void setup() {
   Serial.begin(9600);
   pinMode(G, OUTPUT);
   pinMode(R, OUTPUT);
   pinMode(BP, OUTPUT);
-  pinMode(PM, OUTPUT);
+  pinMode(PM, INPUT);  
 }
 
-void loop()
-{
-  int sensorValue = analogRead(PM);
-  Serial.println(sensorValue);
+void loop() {
+  int val = analogRead(PM);  
+  Serial.println(val);
+
   
-    if (sensorValue > 1)
-  {
-   digitalWrite(R, 0);
-   digitalWrite(G, 1);
-   digitalWrite(BP, 0);
-   noTone(BP);
-  }
-  else 
-  {
-    digitalWrite(BP, 0);
-    digitalWrite(R, 1);
-    digitalWrite(G, 0);
-	tone(BP, 650, 750);
-    delay(300);
-    tone(BP, 900, 1000);
-    delay(300);
-    }
+  int sirenSpeed = map(val, 0, 1023, 100, 1000);  
+  int frequency = map(val, 0, 1023, 400, 2000); 
+
+  
+  if (val > 700) {
+    digitalWrite(R, LOW);  
+    digitalWrite(G, HIGH);  
+    noTone(BP);  
+  } 
+  else { 
+    digitalWrite(G, LOW);   
+    digitalWrite(R, HIGH);  
+
+   
+    tone(BP, frequency); 
+    delay(sirenSpeed);    
+    noTone(BP);           
+    delay(sirenSpeed);   
   }
 
+  delay(50); 
+}
