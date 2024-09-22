@@ -1,0 +1,24 @@
+
+int potion_data = 0;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int knobValue = analogRead(A0);  
+  
+
+  float voltage = knobValue * (5.0 / 1023.0);
+  
+
+  Serial.print(knobValue);
+  Serial.print('-');
+  Serial.println(voltage);
+  
+
+  int pwmValue = (int)(voltage * 255.0 / 5.0);
+  analogWrite(2, pwmValue);
+  
+  delay(1);
+}
