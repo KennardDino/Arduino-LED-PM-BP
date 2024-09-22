@@ -1,39 +1,41 @@
-int G = 10;
-int R = 11;
-int BP = 13;
-int PM = A0;
+int G = 10;   
+int R = 11;   
+int BP = 13;  
+int PM = A0;  
 
 void setup() {
-  Serial.begin(9600);
-  pinMode(G, OUTPUT);
-  pinMode(R, OUTPUT);
-  pinMode(BP, OUTPUT);
-  pinMode(PM, INPUT);  
+  Serial.begin(9600);   
+  pinMode(G, OUTPUT);     
+  pinMode(R, OUTPUT);     
+  pinMode(BP, OUTPUT);    
+  pinMode(PM, INPUT);     
 }
 
 void loop() {
   int val = analogRead(PM);  
-  Serial.println(val);
-  
-  int sirenSpeed = map(val, 0, 1023, 100, 1000);  
-  int highFrequency = map(val, 0, 1023, 800, 1200); 
-  int lowFrequency = map(val, 0, 1023, 400, 600);  
+  Serial.println(val);       
+  int sirenSpeed = 500;
+  int lowFrequency = map(val, 0, 1023, 300, 600);  
+  int highFrequency = map(val, 0, 1023, 800, 1500); 
 
 
   if (val > 700) {
-    digitalWrite(R, LOW);   
+    digitalWrite(R, LOW);  
     digitalWrite(G, HIGH);  
-    noTone(BP);  
+    noTone(BP);            
   } 
   else { 
     digitalWrite(G, LOW);   
     digitalWrite(R, HIGH);  
-
-    tone(BP, highFrequency);  
-    delay(sirenSpeed);  
-    tone(BP, lowFrequency);  
-    delay(sirenSpeed);
+    tone(BP, lowFrequency); 
+    delay(sirenSpeed);      
+                
+    delay(50);             
+	tone(BP, highFrequency); 
+    delay(sirenSpeed);      
+           
+                 
   }
 
-  delay(50);  
+  
 }
